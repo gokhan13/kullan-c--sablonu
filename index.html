@@ -5,14 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Akıllı Bütçe ve Senaryo Modeli</title>
     <style>
-        /* RESET */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-        /* TEMA: Beyaz zemin, siyah metin, kırmızı vurgu */
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-            background: #ffffff;
-            color: #111;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -20,158 +21,203 @@
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            background: #ffffff;
+            background: white;
             border-radius: 20px;
-            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             overflow: hidden;
         }
 
-        /* HEADER: Kırmızı degrade */
         .header {
-            background: linear-gradient(135deg, #ff4d4f 0%, #a8071a 100%);
-            color: #ffffff;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
             padding: 30px;
             text-align: center;
         }
-        .header h1 { font-size: 2.5em; margin-bottom: 10px; }
-        .header p { opacity: 0.9; font-size: 1.1em; }
 
-        /* TABS */
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+
         .tabs {
             display: flex;
-            background: #f6f6f6;
-            border-bottom: 2px solid #e6e6e6;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e0e0e0;
         }
+
         .tab {
             flex: 1;
             padding: 20px;
             text-align: center;
             cursor: pointer;
-            background: #f6f6f6;
+            background: #f8f9fa;
             border: none;
             font-size: 1.1em;
             font-weight: 600;
-            color: #222;
+            color: #666;
             transition: all 0.3s ease;
         }
-        .tab:hover { background: #eeeeee; }
+
         .tab.active {
-            background: #ffffff;
-            color: #a8071a;
-            border-bottom: 3px solid #a8071a;
+            background: white;
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
         }
 
-        /* CONTENT */
-        .tab-content { display: none; padding: 30px; animation: fadeIn 0.5s ease; }
-        .tab-content.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px);} to { opacity: 1; transform: translateY(0);} }
+        .tab:hover {
+            background: #e8e9ea;
+        }
 
-        /* SECTION */
+        .tab-content {
+            display: none;
+            padding: 30px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .section-title {
             font-size: 1.8em;
-            color: #222;
+            color: #333;
             margin-bottom: 20px;
             padding-bottom: 10px;
-            border-bottom: 2px solid #a8071a;
+            border-bottom: 2px solid #667eea;
         }
 
-        /* INFO BOX */
         .info-box {
-            background: #fff5f5;
-            border-left: 4px solid #ff4d4f;
+            background: #f0f7ff;
+            border-left: 4px solid #667eea;
             padding: 15px;
             margin: 20px 0;
             border-radius: 5px;
         }
-        .info-box strong { color: #a8071a; }
 
-        /* TABLES */
-        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .info-box strong {
+            color: #667eea;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
         th {
-            background: #a8071a;
-            color: #ffffff;
+            background: #667eea;
+            color: white;
             padding: 12px;
             text-align: left;
             font-weight: 600;
         }
+
         td {
             padding: 10px;
             border: 1px solid #e0e0e0;
-            color: #111;
         }
-        .total-row { background: #f8f9fa; font-weight: bold; }
 
-        /* INPUTS */
         input[type="number"] {
             width: 100%;
             padding: 8px;
-            border: 1px solid #dddddd;
+            border: 1px solid #ddd;
             border-radius: 4px;
             font-size: 14px;
-            color: #111;
-            background: #fff;
-        }
-        input[type="number"]:focus {
-            outline: none;
-            border-color: #ff4d4f;
-            box-shadow: 0 0 0 2px rgba(255, 77, 79, 0.15);
         }
 
-        /* CARDS */
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+        }
+
+        .total-row {
+            background: #f8f9fa;
+            font-weight: bold;
+        }
+
         .metric-card {
-            background: #ffffff;
-            border: 2px solid #e6e6e6;
+            background: white;
+            border: 2px solid #e0e0e0;
             border-radius: 10px;
             padding: 20px;
             margin: 10px 0;
             transition: all 0.3s ease;
         }
-        .metric-card:hover { box-shadow: 0 5px 20px rgba(0,0,0,0.1); transform: translateY(-2px); }
-        .metric-title { color: #666; font-size: 0.9em; margin-bottom: 5px; }
-        .metric-value { font-size: 2em; font-weight: bold; color: #111; }
 
-        /* SCENARIO CARDS: nötr gri arka plan */
+        .metric-card:hover {
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .metric-title {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #333;
+        }
+
         .scenario-cards {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
             margin: 20px 0;
         }
+
         .scenario-card {
-            background: linear-gradient(135deg, #fafafa 0%, #f0f0f0 100%);
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
             border-radius: 10px;
             padding: 20px;
-            border: 2px solid #e6e6e6;
+            border: 2px solid #ddd;
         }
-        .scenario-card h3 { margin-bottom: 15px; color: #333; }
+
+        .scenario-card.optimistic {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            border-color: #28a745;
+        }
+
+        .scenario-card.realistic {
+            background: linear-gradient(135deg, #cce5ff 0%, #b8daff 100%);
+            border-color: #007bff;
+        }
+
+        .scenario-card.pessimistic {
+            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+            border-color: #dc3545;
+        }
+
+        .scenario-card h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
         .scenario-metric {
-            display: flex; justify-content: space-between;
-            margin: 10px 0; padding: 8px;
-            background: rgba(255,255,255,0.7);
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.7);
             border-radius: 5px;
         }
 
-        /* SUMMARY CARDS: kırmızı degrade */
-        .summary-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
-        .summary-card {
-            background: linear-gradient(135deg, #ff4d4f 0%, #a8071a 100%);
-            color: #ffffff;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-        }
-        .summary-card h4 { font-size: 0.9em; opacity: 0.95; margin-bottom: 10px; }
-        .summary-card .value { font-size: 2em; font-weight: bold; }
-
-        /* EXPORT BUTTON: kırmızı */
         .export-btn {
-            background: #d32029;
-            color: #ffffff;
+            background: #28a745;
+            color: white;
             border: none;
             padding: 12px 30px;
             border-radius: 5px;
@@ -180,17 +226,61 @@
             margin: 20px 0;
             transition: all 0.3s ease;
         }
+
         .export-btn:hover {
-            background: #a8071a;
+            background: #218838;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(163, 7, 26, 0.25);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
         }
 
-        /* ROI Badges */
-        .roi-indicator { display: inline-block; padding: 4px 8px; border-radius: 4px; font-weight: bold; margin-left: 10px; color: #111; }
-        .roi-high   { background: #e6fffb; color: #006d75; }   /* iyi ROI */
-        .roi-medium { background: #fff7e6; color: #ad6800; }   /* orta ROI */
-        .roi-low    { background: #fff1f0; color: #a8071a; }   /* düşük ROI */
+        .roi-indicator {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .roi-high {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .roi-medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .roi-low {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .summary-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .summary-card h4 {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .summary-card .value {
+            font-size: 2em;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -209,9 +299,9 @@
         <!-- SEKME 1: Bütçe & Harcama Planı -->
         <div id="budget" class="tab-content active">
             <h2 class="section-title">12 Aylık Bütçe Planlama</h2>
-
+            
             <div class="info-box">
-                <strong>💡 ABOA Pro-Tavsiye:</strong> Erken aşama bir SaaS girişimi için ideal pazarlama bütçesi,
+                <strong>💡 ABOA Pro-Tavsiye:</strong> Erken aşama bir SaaS girişimi için ideal pazarlama bütçesi, 
                 yıllık hedeflenen cironun %20-30'u arasında olmalıdır.
             </div>
 
@@ -318,7 +408,7 @@
         <!-- SEKME 2: Kanal Performansı & ROI -->
         <div id="performance" class="tab-content">
             <h2 class="section-title">Pazarlama Kanalı Performans Analizi</h2>
-
+            
             <div class="info-box">
                 <strong>📊 Metrik Açıklamaları:</strong><br>
                 • <strong>CAC (Müşteri Edinme Maliyeti):</strong> Harcama / Yeni Müşteri Sayısı<br>
@@ -415,7 +505,7 @@
         <!-- SEKME 3: Senaryo Planlama -->
         <div id="scenario" class="tab-content">
             <h2 class="section-title">Senaryo Planlama Laboratuvarı</h2>
-
+            
             <div class="info-box">
                 <strong>🔮 Değişken Girişleri:</strong> Farklı senaryolar için temel parametreleri ayarlayın
             </div>
@@ -523,53 +613,272 @@
     </div>
 
     <script>
-        // Tab değiştirme
+        // Tab değiştirme fonksiyonu
         function switchTab(tabName, element) {
-            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            // Tüm tab butonlarının active sınıfını kaldır
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Tüm içerikleri gizle
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            // Seçilen tab'ı aktif yap
             element.classList.add('active');
             document.getElementById(tabName).classList.add('active');
         }
 
-        // TR sayı formatı
+        // Sayı formatlama fonksiyonu
         function formatNumber(num) {
             return new Intl.NumberFormat('tr-TR').format(Math.round(num));
         }
 
-        // Bütçe hesapları
+        // Bütçe güncelleme fonksiyonu
         function updateBudget() {
-            const soft_q1 = (+document.getElementById('soft_1').value||0)+(+document.getElementById('soft_2').value||0)+(+document.getElementById('soft_3').value||0);
-            const ads_q1 = (+document.getElementById('ads_1').value||0)+(+document.getElementById('ads_2').value||0)+(+document.getElementById('ads_3').value||0);
-            const content_q1 = (+document.getElementById('content_1').value||0)+(+document.getElementById('content_2').value||0)+(+document.getElementById('content_3').value||0);
-            const staff_q1 = (+document.getElementById('staff_1').value||0)+(+document.getElementById('staff_2').value||0)+(+document.getElementById('staff_3').value||0);
-            const consult_q1 = (+document.getElementById('consult_1').value||0)+(+document.getElementById('consult_2').value||0)+(+document.getElementById('consult_3').value||0);
+            // Q1 hesaplamaları
+            const soft_q1 = parseFloat(document.getElementById('soft_1').value || 0) + 
+                           parseFloat(document.getElementById('soft_2').value || 0) + 
+                           parseFloat(document.getElementById('soft_3').value || 0);
+            const ads_q1 = parseFloat(document.getElementById('ads_1').value || 0) + 
+                          parseFloat(document.getElementById('ads_2').value || 0) + 
+                          parseFloat(document.getElementById('ads_3').value || 0);
+            const content_q1 = parseFloat(document.getElementById('content_1').value || 0) + 
+                              parseFloat(document.getElementById('content_2').value || 0) + 
+                              parseFloat(document.getElementById('content_3').value || 0);
+            const staff_q1 = parseFloat(document.getElementById('staff_1').value || 0) + 
+                            parseFloat(document.getElementById('staff_2').value || 0) + 
+                            parseFloat(document.getElementById('staff_3').value || 0);
+            const consult_q1 = parseFloat(document.getElementById('consult_1').value || 0) + 
+                              parseFloat(document.getElementById('consult_2').value || 0) + 
+                              parseFloat(document.getElementById('consult_3').value || 0);
 
+            // Q1 toplamlarını güncelle
             document.querySelector('.q1_soft').textContent = formatNumber(soft_q1);
             document.querySelector('.q1_ads').textContent = formatNumber(ads_q1);
             document.querySelector('.q1_content').textContent = formatNumber(content_q1);
             document.querySelector('.q1_staff').textContent = formatNumber(staff_q1);
             document.querySelector('.q1_consult').textContent = formatNumber(consult_q1);
 
-            const year_soft = soft_q1 + (+document.getElementById('soft_q2').value||0) + (+document.getElementById('soft_q3').value||0) + (+document.getElementById('soft_q4').value||0);
-            const year_ads = ads_q1 + (+document.getElementById('ads_q2').value||0) + (+document.getElementById('ads_q3').value||0) + (+document.getElementById('ads_q4').value||0);
-            const year_content = content_q1 + (+document.getElementById('content_q2').value||0) + (+document.getElementById('content_q3').value||0) + (+document.getElementById('content_q4').value||0);
-            const year_staff = staff_q1 + (+document.getElementById('staff_q2').value||0) + (+document.getElementById('staff_q3').value||0) + (+document.getElementById('staff_q4').value||0);
-            const year_consult = consult_q1 + (+document.getElementById('consult_q2').value||0) + (+document.getElementById('consult_q3').value||0) + (+document.getElementById('consult_q4').value||0);
+            // Yıllık toplamları hesapla
+            const year_soft = soft_q1 + parseFloat(document.getElementById('soft_q2').value || 0) + 
+                            parseFloat(document.getElementById('soft_q3').value || 0) + 
+                            parseFloat(document.getElementById('soft_q4').value || 0);
+            const year_ads = ads_q1 + parseFloat(document.getElementById('ads_q2').value || 0) + 
+                           parseFloat(document.getElementById('ads_q3').value || 0) + 
+                           parseFloat(document.getElementById('ads_q4').value || 0);
+            const year_content = content_q1 + parseFloat(document.getElementById('content_q2').value || 0) + 
+                               parseFloat(document.getElementById('content_q3').value || 0) + 
+                               parseFloat(document.getElementById('content_q4').value || 0);
+            const year_staff = staff_q1 + parseFloat(document.getElementById('staff_q2').value || 0) + 
+                              parseFloat(document.getElementById('staff_q3').value || 0) + 
+                              parseFloat(document.getElementById('staff_q4').value || 0);
+            const year_consult = consult_q1 + parseFloat(document.getElementById('consult_q2').value || 0) + 
+                                parseFloat(document.getElementById('consult_q3').value || 0) + 
+                                parseFloat(document.getElementById('consult_q4').value || 0);
 
+            // Yıllık toplamları güncelle
             document.querySelector('.year_soft').textContent = formatNumber(year_soft);
             document.querySelector('.year_ads').textContent = formatNumber(year_ads);
             document.querySelector('.year_content').textContent = formatNumber(year_content);
             document.querySelector('.year_staff').textContent = formatNumber(year_staff);
             document.querySelector('.year_consult').textContent = formatNumber(year_consult);
 
-            const month_1 = (+document.getElementById('soft_1').value||0)+(+document.getElementById('ads_1').value||0)+(+document.getElementById('content_1').value||0)+(+document.getElementById('staff_1').value||0)+(+document.getElementById('consult_1').value||0);
-            const month_2 = (+document.getElementById('soft_2').value||0)+(+document.getElementById('ads_2').value||0)+(+document.getElementById('content_2').value||0)+(+document.getElementById('staff_2').value||0)+(+document.getElementById('consult_2').value||0);
-            const month_3 = (+document.getElementById('soft_3').value||0)+(+document.getElementById('ads_3').value||0)+(+document.getElementById('content_3').value||0)+(+document.getElementById('staff_3').value||0)+(+document.getElementById('consult_3').value||0);
+            // Aylık toplamları hesapla
+            const month_1 = parseFloat(document.getElementById('soft_1').value || 0) + 
+                          parseFloat(document.getElementById('ads_1').value || 0) + 
+                          parseFloat(document.getElementById('content_1').value || 0) + 
+                          parseFloat(document.getElementById('staff_1').value || 0) + 
+                          parseFloat(document.getElementById('consult_1').value || 0);
+            const month_2 = parseFloat(document.getElementById('soft_2').value || 0) + 
+                          parseFloat(document.getElementById('ads_2').value || 0) + 
+                          parseFloat(document.getElementById('content_2').value || 0) + 
+                          parseFloat(document.getElementById('staff_2').value || 0) + 
+                          parseFloat(document.getElementById('consult_2').value || 0);
+            const month_3 = parseFloat(document.getElementById('soft_3').value || 0) + 
+                          parseFloat(document.getElementById('ads_3').value || 0) + 
+                          parseFloat(document.getElementById('content_3').value || 0) + 
+                          parseFloat(document.getElementById('staff_3').value || 0) + 
+                          parseFloat(document.getElementById('consult_3').value || 0);
 
             document.querySelector('.month_1').textContent = formatNumber(month_1);
             document.querySelector('.month_2').textContent = formatNumber(month_2);
             document.querySelector('.month_3').textContent = formatNumber(month_3);
 
+            // Çeyrek toplamları
             const q1_total = month_1 + month_2 + month_3;
-            const q2_total = (+document.getElementById('soft_q2').value||0)+(+document.getElementById('ads_q2').value||0)+(+document.getElementById('content_q2').value||0)+(+document.getElementById('staff_q2').value||0)+(+document.getElementById('consult_q2').value||0);
-            const q3_total = (+document.getElementById('soft_q3').value||0)+(+document
+            const q2_total = parseFloat(document.getElementById('soft_q2').value || 0) + 
+                           parseFloat(document.getElementById('ads_q2').value || 0) + 
+                           parseFloat(document.getElementById('content_q2').value || 0) + 
+                           parseFloat(document.getElementById('staff_q2').value || 0) + 
+                           parseFloat(document.getElementById('consult_q2').value || 0);
+            const q3_total = parseFloat(document.getElementById('soft_q3').value || 0) + 
+                           parseFloat(document.getElementById('ads_q3').value || 0) + 
+                           parseFloat(document.getElementById('content_q3').value || 0) + 
+                           parseFloat(document.getElementById('staff_q3').value || 0) + 
+                           parseFloat(document.getElementById('consult_q3').value || 0);
+            const q4_total = parseFloat(document.getElementById('soft_q4').value || 0) + 
+                           parseFloat(document.getElementById('ads_q4').value || 0) + 
+                           parseFloat(document.getElementById('content_q4').value || 0) + 
+                           parseFloat(document.getElementById('staff_q4').value || 0) + 
+                           parseFloat(document.getElementById('consult_q4').value || 0);
+
+            document.querySelector('.q1_total').textContent = formatNumber(q1_total);
+            document.querySelector('.q2_total').textContent = formatNumber(q2_total);
+            document.querySelector('.q3_total').textContent = formatNumber(q3_total);
+            document.querySelector('.q4_total').textContent = formatNumber(q4_total);
+
+            const year_total = q1_total + q2_total + q3_total + q4_total;
+            document.querySelector('.year_total').textContent = formatNumber(year_total);
+
+            // Summary cards
+            document.getElementById('totalBudgetSummary').textContent = '₺' + formatNumber(year_total);
+            document.getElementById('monthlyAverage').textContent = '₺' + formatNumber(year_total / 12);
+
+            // En büyük gider hesaplama
+            const expenses = {
+                'Yazılım': year_soft,
+                'Reklam': year_ads,
+                'İçerik': year_content,
+                'Personel': year_staff,
+                'Danışmanlık': year_consult
+            };
+            
+            let maxExpense = 0;
+            let maxExpenseName = '';
+            for (const [name, value] of Object.entries(expenses)) {
+                if (value > maxExpense) {
+                    maxExpense = value;
+                    maxExpenseName = name;
+                }
+            }
+            
+            const percentage = Math.round((maxExpense / year_total) * 100);
+            document.getElementById('biggestExpense').textContent = `${maxExpenseName} (${percentage}%)`;
+        }
+
+        // ROI güncelleme fonksiyonu
+        function updateROI() {
+            const channels = ['gads', 'linkedin', 'seo', 'email', 'fb'];
+            let totalSpend = 0;
+            let totalCustomers = 0;
+            let totalRevenue = 0;
+            let roiSum = 0;
+            let roiCount = 0;
+            
+            channels.forEach(channel => {
+                const spend = parseFloat(document.getElementById(channel + '_spend').value || 0);
+                const customers = parseFloat(document.getElementById(channel + '_customers').value || 0);
+                const arpu = parseFloat(document.getElementById(channel + '_arpu').value || 0);
+                
+                totalSpend += spend;
+                totalCustomers += customers;
+                
+                // CAC hesaplama
+                const cac = customers > 0 ? spend / customers : 0;
+                document.getElementById(channel + '_cac').textContent = formatNumber(cac);
+                
+                // Gelir hesaplama
+                const revenue = customers * arpu;
+                totalRevenue += revenue;
+                document.getElementById(channel + '_revenue').textContent = formatNumber(revenue);
+                
+                // ROI hesaplama
+                const roi = spend > 0 ? ((revenue - spend) / spend) * 100 : 0;
+                roiSum += roi;
+                roiCount++;
+                document.getElementById(channel + '_roi').textContent = Math.round(roi) + '%';
+                
+                // ROI gösterge güncelleme
+                const indicator = document.getElementById(channel + '_status');
+                if (indicator) {
+                    indicator.className = 'roi-indicator';
+                    if (roi >= 200) {
+                        indicator.classList.add('roi-high');
+                        indicator.textContent = roi >= 400 ? 'En İyi ROI' : 'Yüksek ROI';
+                    } else if (roi >= 100) {
+                        indicator.classList.add('roi-medium');
+                        indicator.textContent = 'Orta ROI';
+                    } else {
+                        indicator.classList.add('roi-low');
+                        indicator.textContent = 'Düşük ROI';
+                    }
+                }
+            });
+            
+            // Özet kartları güncelle
+            document.getElementById('totalSpend').textContent = '₺' + formatNumber(totalSpend);
+            document.getElementById('totalCustomers').textContent = formatNumber(totalCustomers);
+            document.getElementById('avgCAC').textContent = totalCustomers > 0 ? '₺' + formatNumber(totalSpend / totalCustomers) : '₺0';
+            document.getElementById('avgROI').textContent = roiCount > 0 ? Math.round(roiSum / roiCount) + '%' : '0%';
+        }
+
+        // Senaryo güncelleme fonksiyonu
+        function updateScenarios() {
+            const monthlyTarget = parseFloat(document.getElementById('newCustomerTarget').value || 0);
+            const baseChurn = parseFloat(document.getElementById('churnRate').value || 0);
+            const arpu = parseFloat(document.getElementById('arpuInput').value || 0);
+            
+            // Kötümser Senaryo (70%)
+            const pessCustomers = Math.round(monthlyTarget * 0.7);
+            const pessChurn = baseChurn * 1.5; // %50 daha yüksek churn
+            let pessTotal = 0;
+            for (let i = 1; i <= 12; i++) {
+                pessTotal = pessTotal * (1 - pessChurn / 100) + pessCustomers;
+            }
+            pessTotal = Math.round(pessTotal);
+            const pessARR = pessTotal * arpu * 12;
+            const pessCashflow = pessTotal * arpu;
+            
+            document.getElementById('pess_customers').textContent = pessCustomers;
+            document.getElementById('pess_churn').textContent = pessChurn.toFixed(1) + '%';
+            document.getElementById('pess_total').textContent = pessTotal;
+            document.getElementById('pess_arr').textContent = '₺' + formatNumber(pessARR);
+            document.getElementById('pess_cashflow').textContent = '₺' + formatNumber(pessCashflow);
+            
+            // Gerçekçi Senaryo (100%)
+            const realCustomers = monthlyTarget;
+            const realChurn = baseChurn;
+            let realTotal = 0;
+            for (let i = 1; i <= 12; i++) {
+                realTotal = realTotal * (1 - realChurn / 100) + realCustomers;
+            }
+            realTotal = Math.round(realTotal);
+            const realARR = realTotal * arpu * 12;
+            const realCashflow = realTotal * arpu;
+            
+            document.getElementById('real_customers').textContent = realCustomers;
+            document.getElementById('real_churn').textContent = realChurn.toFixed(1) + '%';
+            document.getElementById('real_total').textContent = realTotal;
+            document.getElementById('real_arr').textContent = '₺' + formatNumber(realARR);
+            document.getElementById('real_cashflow').textContent = '₺' + formatNumber(realCashflow);
+            
+            // İyimser Senaryo (130%)
+            const optCustomers = Math.round(monthlyTarget * 1.3);
+            const optChurn = Math.max(baseChurn * 0.67, 1); // %33 daha düşük churn, minimum %1
+            let optTotal = 0;
+            for (let i = 1; i <= 12; i++) {
+                optTotal = optTotal * (1 - optChurn / 100) + optCustomers;
+            }
+            optTotal = Math.round(optTotal);
+            const optARR = optTotal * arpu * 12;
+            const optCashflow = optTotal * arpu;
+            
+            document.getElementById('opt_customers').textContent = optCustomers;
+            document.getElementById('opt_churn').textContent = optChurn.toFixed(1) + '%';
+            document.getElementById('opt_total').textContent = optTotal;
+            document.getElementById('opt_arr').textContent = '₺' + formatNumber(optARR);
+            document.getElementById('opt_cashflow').textContent = '₺' + formatNumber(optCashflow);
+        }
+
+        // Excel'e aktarma fonksiyonu
+        function exportData() {
+            alert('Excel\'e aktarma:\n\n1. Bu sayfadaki tabloları seçip kopyalayın (Ctrl+C)\n2. Excel\'i açın\n3. Yapıştırın (Ctrl+V)\n\nAlternatif: Tarayıcınızdan "Yazdır" seçeneği ile PDF olarak kaydedin.');
+        }
+
+        // Sayfa yüklendiğinde başlangıç hesaplamaları
+        window.onload = function() {
+            updateBudget();
+            updateROI();
+            updateScenarios();
+        };
+    </script>
